@@ -2,54 +2,131 @@
 
 [image1]: https://user-images.githubusercontent.com/10624937/42135619-d90f2f28-7d12-11e8-8823-82b970a54d7e.gif "Trained Agent"
 
-# Project 1: Navigation
+# Project 1: Using Deep Q-Learning for Navigation
 
-### Introduction
+## Problem to Solve.
 
-For this project, you will train an agent to navigate (and collect bananas!) in a large, square world.  
+For this project, an agent has to learn to navigate and collect bananas in a large, square world.  
+
+A reward of +1 is provided for collecting a yellow banana, and a reward of -1 is provided for collecting a blue banana. 
+
+Thus, the goal of the agent is to collect as many yellow bananas as possible while avoiding blue bananas.  The task is episodic and in order to solve the environment the agent must get an average score of at least +13 over 100 consecutive episodes.  
 
 ![Trained Agent][image1]
 
-A reward of +1 is provided for collecting a yellow banana, and a reward of -1 is provided for collecting a blue banana.  Thus, the goal of your agent is to collect as many yellow bananas as possible while avoiding blue bananas.  
+### Environment
+The environment is built on Unity architecture.
 
-The state space has 37 dimensions and contains the agent's velocity, along with ray-based perception of objects around agent's forward direction.  Given this information, the agent has to learn how to best select actions.  Four discrete actions are available, corresponding to:
+The state space has 37 dimensions and contains the agent's velocity, along with ray-based perception of objects around agent's forward direction. Given this information, the agent has to learn how to best select actions. Four discrete actions are available, corresponding to:
 - **`0`** - move forward.
 - **`1`** - move backward.
 - **`2`** - turn left.
 - **`3`** - turn right.
 
-The task is episodic, and in order to solve the environment, your agent must get an average score of +13 over 100 consecutive episodes.
+## Installation
 
-### Getting Started
+### Python Dependencies
 
-1. Download the environment from one of the links below.  You need only select the environment that matches your operating system:
-    - Linux: [click here](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/Banana_Linux.zip)
-    - Mac OSX: [click here](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/Banana.app.zip)
-    - Windows (32-bit): [click here](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/Banana_Windows_x86.zip)
-    - Windows (64-bit): [click here](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/Banana_Windows_x86_64.zip)
+1. The software requires to install Python (3.6.1 or higher). We advocate to create a new environment with Python 3.6
+     
+     * **Linux or Mac**:
+  
+    ```sh
+    conda create --name drlnd python=3.6
+    source activate drlnd
+    ```
     
-    (_For Windows users_) Check out [this link](https://support.microsoft.com/en-us/help/827218/how-to-determine-whether-a-computer-is-running-a-32-bit-version-or-64) if you need help with determining if your computer is running a 32-bit version or 64-bit version of the Windows operating system.
+    * **Windows**:
+  
+    ```sh
+    conda create --name drlnd python=3.6 
+    activate drlnd
+    ```
 
-    (_For AWS_) If you'd like to train the agent on AWS (and have not [enabled a virtual screen](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Training-on-Amazon-Web-Service.md)), then please use [this link](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/Banana_Linux_NoVis.zip) to obtain the environment.
+2. Clone the repository, and navigate to the python/ folder. Then, install several dependencies.
 
-2. Place the file in the DRLND GitHub repository, in the `p1_navigation/` folder, and unzip (or decompress) the file. 
+    ```sh
+        git clone https://github.com/udacity/deep-reinforcement-learning.git
+        cd deep-reinforcement-learning/python
+        pip install .
+    ```
+3. Create and activate IPython kernel for the drlnd environment.
 
-### Instructions
+    ```sh
+    python -m ipykernel install --user --name drlnd --display-name "drlnd"
+    ```
+    
+    In the jupyter notebook instance the kernel is activated from the dropdown menu _Kernel_
 
-Follow the instructions in `Navigation.ipynb` to get started with training your own agent!  
 
-### (Optional) Challenge: Learning from Pixels
 
-After you have successfully completed the project, if you're looking for an additional challenge, you have come to the right place!  In the project, your agent learned from information such as its velocity, along with ray-based perception of objects around its forward direction.  A more challenging task would be to learn directly from pixels!
+### Unity Packages and Environment
+Besides the Python ML library `PyTorch` you will need to install the Unity Packages and Environments plus the relevant Python Packages following the instructions in [Unity ML-Agents](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Installation.md)
 
-To solve this harder task, you'll need to download a new Unity environment.  This environment is almost identical to the project environment, where the only difference is that the state is an 84 x 84 RGB image, corresponding to the agent's first-person view.  (**Note**: Udacity students should not submit a project with this new environment.)
+The ML-Agents Toolkit contains several components:
 
-You need only select the environment that matches your operating system:
-- Linux: [click here](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/VisualBanana_Linux.zip)
-- Mac OSX: [click here](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/VisualBanana.app.zip)
-- Windows (32-bit): [click here](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/VisualBanana_Windows_x86.zip)
-- Windows (64-bit): [click here](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/VisualBanana_Windows_x86_64.zip)
+- Unity package `com.unity.ml-agents` contains the
+  Unity C# SDK that will be integrated into your Unity project.  This package contains
+  a sample to help you get started with ML-Agents.
+- Unity package `com.unity.ml-agents.extensions` contains experimental C#/Unity components that are not yet ready to be part
+  of the base `com.unity.ml-agents` package. `com.unity.ml-agents.extensions`
+  has a direct dependency on `com.unity.ml-agents`.
+- Three Python packages:
+    - `mlagents` contains the machine learning algorithms that
+      enables you to train behaviours in your Unity scene. Most users of ML-Agents
+      will only need to directly install `mlagents`.
+    - `mlagents_envs` contains a Python API to interact with
+      a Unity scene. It is a foundational layer that facilitates data messaging
+      between Unity scene and the Python machine learning algorithms.
+      Consequently, `mlagents` depends on `mlagents_envs`.
+    - `gym_unity` provides a Python-wrapper for your Unity scene
+      that supports the OpenAI Gym interface.
+- Download the Unity based environment `Banana` depending on the machine you are running it from:
+    - [Mac OSX](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/Banana.app.zip "Mac OSX"): `"path/to/Banana.app"`
+    - [Windows](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/Banana_Windows_x86_64.zip "Windows"): `"path/to/Banana_Windows_x86_64/Banana.exe"`
+    - [Linux](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/Banana_Linux.zip "Linux"): `"path/to/Banana_Linux/Banana.x86_64"`
+    - [Linux, headless](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/Banana_Linux.zip "Linux"): `"path/to/Banana_Linux_NoVis/Banana.x86_64"` 
 
-Then, place the file in the `p1_navigation/` folder in the DRLND GitHub repository, and unzip (or decompress) the file.  Next, open `Navigation_Pixels.ipynb` and follow the instructions to learn how to use the Python API to control the agent.
+For instance, if you are using a Mac, then you downloaded `Banana.app`.  If this file is in the same folder as the notebook, then the line below should appear as follows:
 
-(_For AWS_) If you'd like to train the agent on AWS, you must follow the instructions to [set up X Server](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Training-on-Amazon-Web-Service.md), and then download the environment for the **Linux** operating system above.
+## Instructions
+
+You can either follow the steps in the python notebook `Navigation.ipynb` or run it locally from `Navigation.py`.
+
+### Directory Structure
+
+1. Main Python Notebook `Navigation.ipynb`
+2. Main Python Code `Navigation.py`
+3. Python module `dqn_agent.py` defines class Agent that learns by interacting with environment.
+4. Python module `dqn_model.py` defines Q Function as a deep neural network. 
+5. Python module `dqn_monitor.py` defines how the agent interacts with the environment either learning or following best policy. 
+6. The directory `./Banana_Linux/Banana.x86_64` contains the Unity compiled program for the environment with visualization. The directory `./Banana_Linux_NoVis/Banana.x86_64` contains the same program but will not launch visualisation interface.
+7. The PyTorch file `Trained_Agent.pth` is the trained model with weights of the Q Network.  
+
+
+
+### GPU
+If Cuda library available PyTorch will automatically run on GPU otherwise on cpu.
+
+## License
+MIT License
+
+Copyright (c) [2021] [Polymathique]
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
