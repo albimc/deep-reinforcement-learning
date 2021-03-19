@@ -111,3 +111,6 @@ p1_navigation/Banana_Linux_NoVis/
 # Tex Output
 *.aux
 *.toc
+
+# Temp Files
+*.#
