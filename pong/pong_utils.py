@@ -230,7 +230,7 @@ def clipped_surrogate(policy, old_probs, states, actions, rewards,
     # include a regularization term
     # this steers new_policy towards 0.5
     # add in 1.e-10 to avoid log(0) which gives nan
-    entropy = -(new_probs*torch.log(old_probs+1.e-10) + (1.0-new_probs) * torch.log(1.0-old_probs+1.e-10))
+    entropy = -(new_probs * torch.log(old_probs + 1.e-10) + (1.0 - new_probs) * torch.log(1.0 - old_probs + 1.e-10))
 
     # this returns an average of all the entries of the tensor
     # effective computing L_sur^clip / T
