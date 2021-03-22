@@ -114,3 +114,8 @@ p1_navigation/Banana_Linux_NoVis/
 
 # Temp Files
 *.#
+
+
+# Data FashionMNIST
+
+convolution/data/
