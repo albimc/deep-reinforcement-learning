@@ -5,8 +5,10 @@ import matplotlib.ticker as mticker
 
 import syntheticChrissAlmgren as sca
 
+from itertools import zip_longest
+
 from statsmodels.iolib.table import SimpleTable
-from statsmodels.compat.python import zip_longest
+# from statsmodels.compat.python import zip_longest
 from statsmodels.iolib.tableformatting import fmt_2cols
 
 
