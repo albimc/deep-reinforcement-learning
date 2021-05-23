@@ -29,6 +29,7 @@ MAPS = {
     ],
 }
 
+
 class FrozenLakeEnv(discrete.DiscreteEnv):
     """
     Winter is here. You and your friends were tossing around a frisbee at the park
@@ -57,12 +58,13 @@ class FrozenLakeEnv(discrete.DiscreteEnv):
 
     metadata = {'render.modes': ['human', 'ansi']}
 
-    def __init__(self, desc=None, map_name="4x4",is_slippery=True):
+
+    def __init__(self, desc=None, map_name="4x4", is_slippery=True):
         if desc is None and map_name is None:
             raise ValueError('Must provide either desc or map_name')
         elif desc is None:
             desc = MAPS[map_name]
-        self.desc = desc = np.asarray(desc,dtype='c')
+        self.desc = desc = np.asarray(desc, dtype='c')
         self.nrow, self.ncol = nrow, ncol = desc.shape
 
         nA = 4
